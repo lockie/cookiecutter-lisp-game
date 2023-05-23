@@ -1,0 +1,9 @@
+{
+    "full_name": "Your Name",
+    "email": "your@e.mail",
+    "project_name": "The Game",
+    "project_slug": "{{cookiecutter.project_name.lower().replace(' ', '-') | reject('in', ('<', '>', ':', '\"', '/', '\\\\', '|', '?', '*')) | join('') }}",
+    "project_short_description": "A simple game.",
+    "version": "0.0.1",
+    "backend": ["liballegro", "raylib", "SDL2"]
+}

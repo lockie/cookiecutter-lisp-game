@@ -1,0 +1,53 @@
+* cookiecutter-lisp-game
+An opinionated [[https://github.com/cookiecutter/cookiecutter][cookiecutter]] template for Common Lisp videogame
+projects. Contains an empty window with FPS counter, a basic event loop,
+[[https://github.com/cbaggers/livesupport][livesupport]] for interactive development and deployment matters covered
+(automated Linux and Windows builds, with MacOS currently underway).
+
+You can choose the backend middleware library for your project from the
+following:
++ [[https://liballeg.org][liballegro]] — the recommended option. Rock-solid stability, a wide range of
+  functionality and decent Common Lisp [[https://github.com/resttime/cl-liballegro][bindings]]. The only choice that supports
+  the creation of in-game UIs, via [[https://gitlab.com/lockie/cl-liballegro-nuklear][cl-liballegro-nuklear]].
++ [[https://raylib.com][raylib]] — pretty much dark horse. Lacks proper error handling and doesn't have
+  a huge lot of functionality, but the code size is the smallest. The library
+  itself requires [[https://raylib.com/#supported-platforms][manual installation]], and Common Lisp [[https://github.com/longlene/cl-raylib][bindings]] are only
+  present on [[https://ultralisp.org][Ultralisp]].
++ [[https://wiki.libsdl.org/SDL2][SDL2]] — most popular framework, boasting abundant documentation and
+  tutorials. However, Common Lisp [[https://github.com/lispgames/cl-sdl2][bindings]] are in sorry state, so expect bugs
+  and crashes.
+
+** Requirements
+Install cookiecutter:
+#+begin_src sh
+$ pip install cookiecutter
+#+end_src
+
+You'll obviously need some Lisp implementation ([[https://sbcl.org][SBCL]] is preferred) and
+Quicklisp package manager:
+#+begin_src sh
+  $ curl -O https://beta.quicklisp.org/quicklisp.lisp
+  $ sbcl --non-interactive --load quicklisp.lisp \
+    --eval '(quicklisp-quickstart:install)' \
+    --eval '(ql-util:without-prompting (ql:add-to-init-file))'
+#+end_src
+
+To use the *raylib* middleware, you'll additionally need to have [[https://ultralisp.org][Ultralisp]]
+installed:
+#+begin_src sh
+$ sbcl --non-interactive --eval '(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)'
+#+end_src
+
+** Usage
+#+begin_src sh
+$ cookiecutter gh:lockie/cookiecutter-lisp-game
+#+end_src
+
+To change branding icon, replace =package/icon.png= with any 256x256 PNG file.
+
+To automatically build packages for supported OSes, just add a tag to a commit
+and push it to your repo on GitHub; in about 10 minutes they'll appear in
+Releases section of your repo.
+
+** License
+This project is licensed under the terms of the MIT License.

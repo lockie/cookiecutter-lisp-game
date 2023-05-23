@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name={{cookiecutter.project_name}}
+Exec={{cookiecutter.project_slug}}
+Terminal=false
+Categories=Game;
+Icon=icon

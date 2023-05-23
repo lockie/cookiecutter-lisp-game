@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+set -e
+
+dir=$(dirname "$(readlink -f "${0}")")
+cd "$dir/usr/lib"
+XDG_DATA_DIRS=$dir/usr/share LD_LIBRARY_PATH=. ../bin/{{cookiecutter.project_slug}}

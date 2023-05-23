@@ -1,0 +1,30 @@
+* {{cookiecutter.project_name}}
+
+** Installation
+
+{% if cookiecutter.backend == "raylib" %}
+You'll need to have [[https://ultralisp.org][Ultralisp dist]] installed.
+{% endif %}
+
+** System requirements
+
++ Windows 7 SP1 or Ubuntu 16.04
++ 2 GB of RAM
++ 40 Mb of free disk space
+
+** Author
+
++ {{cookiecutter.full_name}} ({{cookiecutter.email}})
+
+** Credits
+
++ [[https://fonts.google.com/specimen/Inconsolata/about][Inconsolata font]]
++ [[http://tango.freedesktop.org][Tango icons]]
+
+** Copyright
+
+Copyright (c) {% now 'utc', '%Y' %} {{cookiecutter.full_name}} ({{cookiecutter.email}})
+
+** License
+
+Licensed under the MIT License.
