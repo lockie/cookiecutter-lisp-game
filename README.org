@@ -43,6 +43,10 @@ $ sbcl --non-interactive --eval '(ql-dist:install-dist "http://dist.ultralisp.or
 $ cookiecutter gh:lockie/cookiecutter-lisp-game
 #+end_src
 
+*IMPORTANT*: Push your repo to Github, then go to Settings → Actions → General →
+Workflow permissions and tick the "Read and write permission" option, otherwise
+you'll get "Error 403: Resource not accessible by integration" on build.
+
 To change branding icon, replace =package/icon.png= with any 256x256 PNG file.
 
 To automatically build packages for supported OSes, just add a tag to a commit
