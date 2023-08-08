@@ -63,5 +63,10 @@ To automatically build packages for supported OSes, just add a tag to a commit
 and push it to your repo on GitHub; in about 10 minutes they'll appear in
 Releases section of your repo.
 
+** Projects
+The list of projects built with this template:
+- [[https://awkravchuk.itch.io/thoughtbound][Thoughtbound]], a Spring Lisp Game Jam 2023 entry
+- feel free to [[https://github.com/lockie/cookiecutter-lisp-game/issues/new/choose][add your projects here]]!
+
 ** License
 This project is licensed under the terms of the MIT License.
