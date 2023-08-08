@@ -20,28 +20,38 @@ following:
 ** Requirements
 Install cookiecutter:
 #+begin_src sh
-$ pip install cookiecutter
+pip install cookiecutter
 #+end_src
 
 You'll obviously need some Lisp implementation ([[https://sbcl.org][SBCL]] is preferred) and
 Quicklisp package manager:
 #+begin_src sh
-  $ curl -O https://beta.quicklisp.org/quicklisp.lisp
-  $ sbcl --non-interactive --load quicklisp.lisp \
-    --eval '(quicklisp-quickstart:install)' \
-    --eval '(ql-util:without-prompting (ql:add-to-init-file))'
+curl -O https://beta.quicklisp.org/quicklisp.lisp
+sbcl --non-interactive --load quicklisp.lisp \
+  --eval '(quicklisp-quickstart:install)' \
+  --eval '(ql-util:without-prompting (ql:add-to-init-file))'
 #+end_src
 
 To use the *raylib* middleware, you'll additionally need to have [[https://ultralisp.org][Ultralisp]]
 installed:
 #+begin_src sh
-$ sbcl --non-interactive --eval '(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)'
+sbcl --non-interactive --eval '(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)'
 #+end_src
 
 ** Usage
 #+begin_src sh
-$ cookiecutter gh:lockie/cookiecutter-lisp-game
+cookiecutter gh:lockie/cookiecutter-lisp-game
 #+end_src
+
+Dont forget to symlink your project's directory to Quicklisp's [[http://blog.quicklisp.org/2018/01/the-quicklisp-local-projects-mechanism.html][local projects]]
+for local development:
+#+begin_src sh
+cd your-game
+ln -s `pwd` $HOME/quicklisp/local-projects/
+#+end_src
+
+After that, you can just ~(ql:quickload :your-game)~ in your preferred Lisp IDE,
+run ~(main)~ and start hacking!
 
 *IMPORTANT*: Push your repo to Github, then go to Settings → Actions → General →
 Workflow permissions and tick the "Read and write permission" option, otherwise
