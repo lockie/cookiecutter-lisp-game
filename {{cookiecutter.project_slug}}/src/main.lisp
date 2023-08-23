@@ -93,30 +93,31 @@
       (unwind-protect
            (cffi:with-foreign-object (event '(:union al:event))
              (livesupport:setup-lisp-repl)
-             (loop :named event-loop
-                   :with *font* := (al:load-ttf-font +font-path+
-                                                     (- +font-size+) 0)
-                   :with ticks :of-type double-float := (al:get-time)
-                   :with last-repl-update :of-type double-float := ticks
-                   :with dt :of-type double-float := 0d0
-                   :while (loop :while (al:get-next-event event-queue event)
-                                :for type :=
-                                          (cffi:foreign-slot-value
-                                           event '(:union al:event) 'al::type)
-                                :always (not (eq type :display-close)))
-                   :do (let ((new-ticks (al:get-time)))
-                         (setf dt (- new-ticks ticks)
-                               ticks new-ticks))
-                       (when (> (- ticks last-repl-update)
-                                +repl-update-interval+)
-                         (livesupport:update-repl-link)
-                         (setf last-repl-update ticks))
-                       (al:clear-to-color (al:map-rgb 0 0 0))
-                       (livesupport:continuable
-                         (update dt)
-                         (render))
-                       (al:flip-display)
-                   :finally (al:destroy-font *font*)))
+             (loop
+               :named main-game-loop
+               :with *font* := (al:load-ttf-font +font-path+ (- +font-size+) 0)
+               :with ticks :of-type double-float := (al:get-time)
+               :with last-repl-update :of-type double-float := ticks
+               :with dt :of-type double-float := 0d0
+               :while (loop
+                        :named event-loop
+                        :while (al:get-next-event event-queue event)
+                        :for type := (cffi:foreign-slot-value
+                                      event '(:union al:event) 'al::type)
+                        :always (not (eq type :display-close)))
+               :do (let ((new-ticks (al:get-time)))
+                     (setf dt (- new-ticks ticks)
+                           ticks new-ticks))
+                   (when (> (- ticks last-repl-update)
+                            +repl-update-interval+)
+                     (livesupport:update-repl-link)
+                     (setf last-repl-update ticks))
+                   (al:clear-to-color (al:map-rgb 0 0 0))
+                   (livesupport:continuable
+                     (update dt)
+                     (render))
+                   (al:flip-display)
+               :finally (al:destroy-font *font*)))
         (al:inhibit-screensaver nil)
         (al:destroy-event-queue event-queue)
         (al:destroy-display display)
@@ -140,7 +141,8 @@
     (livesupport:setup-lisp-repl)
     (let ((*font* (raylib:load-font-ex +font-path+ +font-size+
                                        (cffi:null-pointer) 0)))
-      (loop :with last-repl-update :of-type double-float := 0d0
+      (loop :named main-game-loop
+            :with last-repl-update :of-type double-float := 0d0
             :until (raylib:window-should-close)
             :for dt :of-type single-float := (raylib:get-frame-time)
             :for ticks :of-type double-float := (raylib:get-time)
