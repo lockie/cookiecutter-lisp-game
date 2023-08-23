@@ -23,6 +23,10 @@
       (sdl2:destroy-texture texture)))
   t)
 {% endif %}
+(defun init ()
+  ;; TODO : put your initialization logic here
+  )
+
 (declaim (type fixnum *fps*))
 (defvar *fps* 0)
 
@@ -91,6 +95,7 @@
       (al:register-event-source event-queue
                                 (al:get-mouse-event-source))
       (unwind-protect
+           (init)
            (cffi:with-foreign-object (event '(:union al:event))
              (livesupport:setup-lisp-repl)
              (loop
@@ -138,6 +143,7 @@
   (raylib:with-window (+window-width+ +window-height+
                        "{{cookiecutter.project_name}}")
     (raylib:set-exit-key 0)
+    (init)
     (livesupport:setup-lisp-repl)
     (let ((*font* (raylib:load-font-ex +font-path+ +font-size+
                                        (cffi:null-pointer) 0)))
@@ -177,6 +183,7 @@
                              :title "{{cookiecutter.project_name}}"
                              :flags '(:shown))
         (sdl2:with-renderer (ren win)
+          (init)
           (let ((*font* (sdl2-ttf:open-font +font-path+ +font-size+))
                 (ticks (sdl2:get-ticks))
                 (dt 0.0))
