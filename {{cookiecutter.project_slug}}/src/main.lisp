@@ -68,6 +68,8 @@
         (al:merge-config-into (al:get-system-config) config)))
     (unless (al:init)
       (error "Initializing liballegro failed"))
+    (unless (al:init-primitives-addon)
+      (error "Initializing primitives addon failed"))
     (unless (al:init-image-addon)
       (error "Initializing image addon failed"))
     (unless (al:init-font-addon)
