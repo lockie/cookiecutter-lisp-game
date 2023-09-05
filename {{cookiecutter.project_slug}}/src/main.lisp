@@ -102,7 +102,9 @@
              (livesupport:setup-lisp-repl)
              (loop
                :named main-game-loop
-               :with *font* := (al:load-ttf-font +font-path+ (- +font-size+) 0)
+               :with *font* := (al:ensure-loaded #'al:load-ttf-font
+                                                 +font-path+
+                                                 (- +font-size+) 0)
                :with ticks :of-type double-float := (al:get-time)
                :with last-repl-update :of-type double-float := ticks
                :with dt :of-type double-float := 0d0
