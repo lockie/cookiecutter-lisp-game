@@ -6,7 +6,7 @@ projects. Contains an empty window with FPS counter, a basic event loop,
 
 You can choose the backend middleware library for your project from the
 following:
-+ [[https://liballeg.org][liballegro]] — the recommended option. Rock-solid stability, a wide range of
++ [[https://liballeg.github.io][liballegro]] — the recommended option. Rock-solid stability, a wide range of
   functionality and decent Common Lisp [[https://github.com/resttime/cl-liballegro][bindings]]. The only choice that supports
   the creation of in-game UIs, via [[https://gitlab.com/lockie/cl-liballegro-nuklear][cl-liballegro-nuklear]].
 + [[https://raylib.com][raylib]] — pretty much dark horse. Lacks proper error handling and doesn't have
