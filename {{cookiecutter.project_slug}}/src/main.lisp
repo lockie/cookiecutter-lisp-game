@@ -163,7 +163,7 @@
                            +repl-update-interval+)
                     (livesupport:update-repl-link)
                     (setf last-repl-update ticks))
-                  (raylib:clear-background :rayblack)
+                  (raylib:clear-background :black)
                   (livesupport:continuable
                     (update dt)
                     (render))
