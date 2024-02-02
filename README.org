@@ -12,7 +12,7 @@ following:
 + [[https://raylib.com][raylib]] — pretty much dark horse. Lacks proper error handling and doesn't have
   a huge lot of functionality, but the code size is the smallest. The library
   itself requires [[https://raylib.com/#supported-platforms][manual installation]], and Common Lisp [[https://github.com/longlene/cl-raylib][bindings]] are only
-  present on [[https://ultralisp.org][Ultralisp]].
+  present on [[https://ultralisp.org][Ultralisp]]. NOTE: untested under MacOS.
 + [[https://wiki.libsdl.org/SDL2][SDL2]] — most popular framework, boasting abundant documentation and
   tutorials. However, Common Lisp [[https://github.com/lispgames/cl-sdl2][bindings]] are in sorry state, so expect bugs
   and crashes.

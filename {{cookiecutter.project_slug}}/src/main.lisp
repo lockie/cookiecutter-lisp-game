@@ -63,11 +63,11 @@
                             (uiop:print-condition-backtrace e :stream s))
                           (cffi:null-pointer) :error)))))
     (al:set-app-name "{{cookiecutter.project_slug}}")
+    (unless (al:init)
+      (error "Initializing liballegro failed"))
     (let ((config (al:load-config-file +config-path+)))
       (unless (cffi:null-pointer-p config)
         (al:merge-config-into (al:get-system-config) config)))
-    (unless (al:init)
-      (error "Initializing liballegro failed"))
     (unless (al:init-primitives-addon)
       (error "Initializing primitives addon failed"))
     (unless (al:init-image-addon)
@@ -99,7 +99,8 @@
       (unwind-protect
            (cffi:with-foreign-object (event '(:union al:event))
              (init)
-             (livesupport:setup-lisp-repl)
+             (trivial-main-thread:call-in-main-thread
+              #'livesupport:setup-lisp-repl)
              (loop
                :named main-game-loop
                :with *font* := (al:ensure-loaded #'al:load-ttf-font
@@ -139,9 +140,10 @@
   0)
 
 (defun main ()
-  (float-features:with-float-traps-masked
-      (:divide-by-zero :invalid :inexact :overflow :underflow)
-    (al:run-main 0 (cffi:null-pointer) (cffi:callback %main))))
+  (trivial-main-thread:with-body-in-main-thread ()
+    (float-features:with-float-traps-masked
+        (:divide-by-zero :invalid :inexact :overflow :underflow)
+      (al:run-main 0 (cffi:null-pointer) (cffi:callback %main)))))
 {% elif cookiecutter.backend == "raylib" %}
 (defun main ()
   (raylib:with-window (+window-width+ +window-height+
@@ -168,9 +170,12 @@
                   (raylib::wait-time 0.001d0))))))
 {% elif cookiecutter.backend == "SDL2" %}
 (defun main ()
-  (sdl2:with-init (:everything)
-    (handler-bind
-        ((error #'(lambda (e) (unless *debugger-hook*
+  (sdl2:make-this-thread-main
+   #'(lambda ()
+       (sdl2:with-init (:everything)
+         (handler-bind
+             ((error #'(lambda (e)
+                         (unless *debugger-hook*
                            (sdl2-ffi.functions::sdl-show-simple-message-box
                             sdl2-ffi:+sdl-messagebox-error+
                             "Hey guys"
@@ -180,33 +185,33 @@
                             (cffi:null-pointer))
                            (sdl2:quit)
                            (uiop:quit)))))
-      (sdl2-image:init '(:png :jpg))
-      (sdl2-mixer:init)
-      (sdl2-ttf:init)
-      (sdl2:with-window (win :w +window-width+ :h +window-height+
-                             :title "{{cookiecutter.project_name}}"
-                             :flags '(:shown))
-        (sdl2:with-renderer (ren win)
-          (init)
-          (let ((*font* (sdl2-ttf:open-font +font-path+ +font-size+))
-                (ticks (sdl2:get-ticks))
-                (dt 0.0))
-            (declare (type fixnum ticks)
-                     (type single-float dt))
-            (sdl2:with-event-loop (:method :poll)
-              (:idle
-               ()
-               (let ((new-ticks (sdl2:get-ticks)))
-                 (setf dt (* (- new-ticks ticks) 0.001)
-                       ticks new-ticks))
-               (sdl2:render-clear ren)
-               (update dt)
-               (render ren)
-               (sdl2:render-present ren)
-               (sdl2:delay 1))
-              (:quit
-               ()
-               (sdl2-ttf:close-font *font*)
-               (sdl2-ttf:quit)
-               t))))))))
+           (sdl2-image:init '(:png :jpg))
+           (sdl2-mixer:init)
+           (sdl2-ttf:init)
+           (sdl2:with-window (win :w +window-width+ :h +window-height+
+                                  :title "{{cookiecutter.project_name}}"
+                                  :flags '(:shown))
+             (sdl2:with-renderer (ren win)
+               (init)
+               (let ((*font* (sdl2-ttf:open-font +font-path+ +font-size+))
+                     (ticks (sdl2:get-ticks))
+                     (dt 0.0))
+                 (declare (type fixnum ticks)
+                          (type single-float dt))
+                 (sdl2:with-event-loop (:method :poll)
+                   (:idle
+                    ()
+                    (let ((new-ticks (sdl2:get-ticks)))
+                      (setf dt (* (- new-ticks ticks) 0.001)
+                            ticks new-ticks))
+                    (sdl2:render-clear ren)
+                    (update dt)
+                    (render ren)
+                    (sdl2:render-present ren)
+                    (sdl2:delay 1))
+                   (:quit
+                    ()
+                    (sdl2-ttf:close-font *font*)
+                    (sdl2-ttf:quit)
+                    t))))))))))
 {% endif %}
