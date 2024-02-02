@@ -6,9 +6,9 @@
 You'll need to have [[https://ultralisp.org][Ultralisp dist]] installed.
 {% endif %}
 
-** System requirements
+** Minimum system requirements
 
-+ Windows 7 SP1 or Ubuntu 16.04
++ Windows 7 SP1, MacOS Monterey or Ubuntu 16.04
 + 2 GB of RAM
 + 40 Mb of free disk space
 

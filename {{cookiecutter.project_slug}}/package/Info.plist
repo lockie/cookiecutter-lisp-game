@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleDisplayName</key>
+    <string>{{cookiecutter.project_name}}</string>
+    <key>CFBundleVersion</key>
+    <string>{{cookiecutter.version}}</string>
+    <key>CFBundleExecutable</key>
+    <string>{{cookiecutter.project_slug}}</string>
+    <key>CFBundleIconFile</key>
+    <string>icon.png</string>
+    <key>NSHumanReadableCopyright</key>
+    <string>Copyright © {% now 'utc', '%Y' %} {{cookiecutter.full_name}}</string>
+    <key>NSHighResolutionCapable</key>
+    <true/>
+  </dict>
+</plist>
