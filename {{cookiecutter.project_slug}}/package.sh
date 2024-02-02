@@ -28,7 +28,9 @@ case $1 in
 
     windows)
         do_build
+        {% if cookiecutter.backend != "raylib" %}
         ntldd -R bin/* | grep ucrt64 | awk -F '=> ' '{ print $2 }' | awk '{ print $1 }' | xargs -I deps cp deps bin
+        {% endif %}
         makensis package/installer.nsi
         ;;
 
