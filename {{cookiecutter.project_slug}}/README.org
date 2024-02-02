@@ -10,7 +10,7 @@ You'll need to have [[https://ultralisp.org][Ultralisp dist]] installed.
 
 + Windows 7 SP1, MacOS Monterey or Ubuntu 16.04
 + 2 GB of RAM
-+ 40 Mb of free disk space
++ 60 Mb of free disk space
 
 ** Author
 
