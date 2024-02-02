@@ -76,7 +76,7 @@ jobs:
       - name: Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "linux/*.AppImage,windows/*.exe"
+          artifacts: "linux/*.AppImage,macos/*.dmg,windows/*.exe"
           omitBody: true
           allowUpdates: true
           artifactErrorsFailBuild: true
