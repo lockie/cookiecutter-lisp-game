@@ -66,6 +66,7 @@ Releases section of your repo.
 ** Projects
 The list of projects built with this template:
 - [[https://awkravchuk.itch.io/thoughtbound][Thoughtbound]], a Spring Lisp Game Jam 2023 entry
+- [[https://awkravchuk.itch.io/mana-break][Mana Break]], an Autumn Lisp Game Jam 2023 entry
 - feel free to [[https://github.com/lockie/cookiecutter-lisp-game/issues/new/choose][add your projects here]]!
 
 ** License
