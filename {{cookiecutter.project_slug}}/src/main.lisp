@@ -45,7 +45,7 @@
                 (format nil "~d FPS" *fps*))
 {% elif cookiecutter.backend == "raylib" %}
   (raylib:draw-text-ex *font* (format nil "~d FPS" *fps*) (3d-vectors:vec2 0 0)
-                       (float +font-size+) 1.0 raylib:+white+)
+                       (float +font-size+) 1.0 :raywhite)
 {% elif cookiecutter.backend == "SDL2" %}
   (%render-text renderer *font* 0 0 (format nil "~d FPS" *fps*))
 {% endif %}
@@ -161,7 +161,7 @@
                            +repl-update-interval+)
                     (livesupport:update-repl-link)
                     (setf last-repl-update ticks))
-                  (raylib:clear-background raylib:+black+)
+                  (raylib:clear-background :rayblack)
                   (livesupport:continuable
                     (update dt)
                     (render))
