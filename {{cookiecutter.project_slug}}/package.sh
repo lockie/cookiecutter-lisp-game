@@ -46,6 +46,7 @@ case $1 in
             dylibbundler -of -cd -b -p '@loader_path' -x "$library" -d "$contents/MacOS"
             cp "$library" "$contents/MacOS"
         done
+        mv "$contents"/MacOS/libzstd* "$contents/MacOS/libzstd.1.dylib"
 
         # https://bugs.launchpad.net/sbcl/+bug/1869401
         replace_fr=$(echo -n  "/opt/local/lib/libzstd.1.dylib" | xxd -ps -c1 | tr -d '\n')
