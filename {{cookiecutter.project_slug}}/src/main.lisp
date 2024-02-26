@@ -99,7 +99,7 @@
       (unwind-protect
            (cffi:with-foreign-object (event '(:union al:event))
              (init)
-             (trivial-main-thread:call-in-main-thread
+             (#+darwin trivial-main-thread:call-in-main-thread #-darwin funcall
               #'livesupport:setup-lisp-repl)
              (loop
                :named main-game-loop
@@ -140,7 +140,7 @@
   0)
 
 (defun main ()
-  (trivial-main-thread:with-body-in-main-thread ()
+  (#+darwin trivial-main-thread:with-body-in-main-thread #-darwin progn nil
     (float-features:with-float-traps-masked
         (:divide-by-zero :invalid :inexact :overflow :underflow)
       (al:run-main 0 (cffi:null-pointer) (cffi:callback %main)))))
