@@ -5,12 +5,19 @@
 
 (define-constant +repl-update-interval+ 0.3d0)
 
-(define-constant +font-path+ "../Resources/inconsolata.ttf"
-  :test #'string=)
+(defvar *resources-path*
+  (asdf:system-relative-pathname :{{cookiecutter.project_slug}} #P"Resources/"))
+
+(deploy:define-hook (:boot set-resources-path) ()
+  (setf *resources-path*
+        (merge-pathnames #P"Resources/"
+                         (uiop:pathname-parent-directory-pathname
+                          (deploy:runtime-directory)))))
+
+(define-constant +font-path+ "inconsolata.ttf" :test #'string=)
 (define-constant +font-size+ 24)
 {% if cookiecutter.backend == "liballegro" %}
-(define-constant +config-path+ "../config.cfg"
-  :test #'string=)
+(define-constant +config-path+ "../config.cfg" :test #'string=)
 {% elif cookiecutter.backend == "SDL2" %}
 (defun %render-text (renderer font x y text)
   (let* ((surface (sdl2-ttf:render-text-blended font text 255 255 255 0))
@@ -62,6 +69,7 @@
                           (with-output-to-string (s)
                             (uiop:print-condition-backtrace e :stream s))
                           (cffi:null-pointer) :error)))))
+    (uiop:chdir *resources-path*)
     (al:set-app-name "{{cookiecutter.project_slug}}")
     (unless (al:init)
       (error "Initializing liballegro failed"))
@@ -146,6 +154,7 @@
       (al:run-main 0 (cffi:null-pointer) (cffi:callback %main)))))
 {% elif cookiecutter.backend == "raylib" %}
 (defun main ()
+  (uiop:chdir *resources-path*)
   (raylib:with-window (+window-width+ +window-height+
                        "{{cookiecutter.project_name}}")
     (raylib:set-exit-key 0)
@@ -170,6 +179,7 @@
                   (raylib::wait-time 0.001d0))))))
 {% elif cookiecutter.backend == "SDL2" %}
 (defun main ()
+  (uiop:chdir *resources-path*)
   (sdl2:make-this-thread-main
    #'(lambda ()
        (sdl2:with-init (:everything)
