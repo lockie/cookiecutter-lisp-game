@@ -69,7 +69,7 @@
                           (with-output-to-string (s)
                             (uiop:print-condition-backtrace e :stream s))
                           (cffi:null-pointer) :error)))))
-    (uiop:chdir *resources-path*)
+    (uiop:chdir (setf *default-pathname-defaults* *resources-path*))
     (al:set-app-name "{{cookiecutter.project_slug}}")
     (unless (al:init)
       (error "Initializing liballegro failed"))
