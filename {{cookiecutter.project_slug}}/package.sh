@@ -16,10 +16,11 @@ function do_build () {
 case $1 in
     linux)
         do_build
-        linuxdeploy --appimage-extract-and-run --executable=bin/{{cookiecutter.project_slug}} \
+        DEPLOY_GTK_VERSION=3 linuxdeploy --appimage-extract-and-run --executable=bin/{{cookiecutter.project_slug}} \
                     --custom-apprun=package/AppRun \
                     --icon-file=package/icon.png \
                     --desktop-file=package/{{cookiecutter.project_slug}}.desktop \
+                    --plugin gtk \
                     --appdir=appimage $(find bin -name "lib*" -printf "-l%p ")
         cp bin/{{cookiecutter.project_slug}} appimage/usr/bin
         cp -R Resources appimage/usr
