@@ -24,7 +24,7 @@ pip install cookiecutter
 #+end_src
 
 You'll obviously need some Lisp implementation ([[https://sbcl.org][SBCL]] is preferred) and
-Quicklisp package manager:
+[[https://quicklisp.org][Quicklisp]] package manager:
 #+begin_src sh
 curl -O https://beta.quicklisp.org/quicklisp.lisp
 sbcl --non-interactive --load quicklisp.lisp \
