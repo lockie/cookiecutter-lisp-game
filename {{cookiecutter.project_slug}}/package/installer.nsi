@@ -1,8 +1,5 @@
 !include MUI2.nsh
 
-!system 'convert icon.png -define icon:auto-resize=16,32,48,64,256 %TEMP%/icon.ico'
-!system 'convert -resize 150x57 -extent 150x57 -gravity center -background white -alpha remove -alpha off icon.png BMP2:%TEMP%/icon.bmp'
-
 !define MUI_PRODUCT "{{cookiecutter.project_name |
   reject('in', ('<', '>', ':', '"', '/', '\\', '|', '?', '*')) | join('')}}"
 !define MUI_FILE "{{cookiecutter.project_slug}}"

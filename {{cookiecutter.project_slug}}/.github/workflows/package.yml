@@ -55,8 +55,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Build package
-        # NOTE: Github actions fuck up Docker's ENTRYPOINT, hence this atrocity
-        run: set +e; cd /opt/quasi-msys2/env; . /opt/quasi-msys2/env/all.src; cd -; WINEPATH="Z:/ucrt64/bin;C:/Program Files (x86)/NSIS" PKG_CONFIG_PATH="Z:/ucrt64/lib/pkgconfig" CC=gcc-wrapper wine busybox sh -c 'export HOME="C:/users/root"; ./package.sh windows'
+        run: msys2 -c "./package.sh windows"
       - name: Archive package
         uses: actions/upload-artifact@v3
         with:
