@@ -32,8 +32,8 @@ case $1 in
         {% if cookiecutter.backend != "raylib" %}
         ntldd -R bin/* | grep ucrt64 | awk -F '=> ' '{ print $2 }' | awk '{ print $1 }' | sed 's/\\/\\\\/g' | xargs -I deps cp deps bin
         {% endif %}
-        (cd "$TEMP"; convert "$OLDPWD/package/icon.png" -define icon:auto-resize=16,32,48,64,256 icon.ico)
-        (cd "$TEMP"; convert -resize 150x57 -extent 150x57 -gravity center -background white -alpha remove -alpha off "$OLDPWD/package/icon.png" BMP2:icon.bmp)
+        MSYS2_ARG_CONV_EXCL='*' magick package/icon.png -define icon:auto-resize=16,32,48,64,256 "$TEMP/icon.ico"
+        MSYS2_ARG_CONV_EXCL='*' magick -resize 150x57 -extent 150x57 -gravity center -background white -alpha remove -alpha off package/icon.png "BMP2:$TEMP/icon.bmp"
         makensis package/installer.nsi
         ;;
 
