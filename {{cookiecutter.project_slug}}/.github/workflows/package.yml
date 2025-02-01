@@ -17,7 +17,7 @@ jobs:
       - name: Build package
         run: ./package.sh linux
       - name: Archive package
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: linux
           path: '*.AppImage'
@@ -41,7 +41,7 @@ jobs:
       - name: Build package
         run: HOME=/Users/runner DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib PKG_CONFIG_PATH=/opt/local/lib/pkgconfig ./package.sh macos
       - name: Archive package
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: macos
           path: '*.dmg'
@@ -57,7 +57,7 @@ jobs:
       - name: Build package
         run: msys2 -c "./package.sh windows"
       - name: Archive package
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: windows
           path: '*.exe'
@@ -67,7 +67,7 @@ jobs:
     needs: [build-linux, build-macos, build-windows]
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
       - name: Release
         uses: ncipollo/release-action@v1
         with:
