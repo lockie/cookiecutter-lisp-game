@@ -23,15 +23,15 @@ jobs:
           path: '*.AppImage'
           if-no-files-found: error
   build-macos:
-    runs-on: macos-12
+    runs-on: macos-14
     steps:
       - name: Install macports
         run: |
-         wget -q https://github.com/macports/macports-base/releases/download/v2.9.1/MacPorts-2.9.1-12-Monterey.pkg -P /tmp
-         sudo installer -pkg /tmp/MacPorts-2.9.1-12-Monterey.pkg -target /
+         wget -q https://github.com/macports/macports-base/releases/download/v2.10.5/MacPorts-2.10.5-14-Sonoma.pkg -P /tmp
+         sudo installer -pkg /tmp/MacPorts-2.10.5-14-Sonoma.pkg -target /
          echo "/opt/local/bin" >> $GITHUB_PATH
       - name: Install prerequisites
-        run: sudo /opt/local/bin/port -N install sbcl pkgconfig libffi dylibbundler {% if cookiecutter.backend == "liballegro" %}allegro5{% elif cookiecutter.backend == "raylib" %}raylib{% elif cookiecutter.backend == "SDL2" %}libsdl2 libsdl2_image libsdl2_mixer libsdl2_ttf{% endif %}
+        run: sudo /opt/local/bin/port -Nb install sbcl pkgconfig libffi dylibbundler {% if cookiecutter.backend == "liballegro" %}allegro5{% elif cookiecutter.backend == "raylib" %}raylib{% elif cookiecutter.backend == "SDL2" %}libsdl2 libsdl2_image libsdl2_mixer libsdl2_ttf{% endif %}
       - name: Install Quicklisp
         run: |
           wget -q https://beta.quicklisp.org/quicklisp.lisp -P /tmp
