@@ -2,7 +2,8 @@
 An opinionated [[https://github.com/cookiecutter/cookiecutter][cookiecutter]] template for Common Lisp videogame
 projects. Contains an empty window with FPS counter, a basic event loop,
 [[https://github.com/cbaggers/livesupport][livesupport]] for interactive development and deployment matters covered
-(automated Linux, MacOS and Windows builds).
+(automated Linux, MacOS and Windows builds with the help of
+[[https://gitlab.com/lockie/docker-lisp-gamedev][docker-lisp-gamedev]]).
 
 You can choose the backend middleware library for your project from the
 following:
