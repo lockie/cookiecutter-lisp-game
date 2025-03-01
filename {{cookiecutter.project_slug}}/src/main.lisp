@@ -90,6 +90,8 @@
       (error "Initializing audio codec addon failed"))
     (unless (al:restore-default-mixer)
       (error "Initializing default audio mixer failed"))
+    (al:set-new-display-flags '(:opengl))
+    (al:set-new-display-option :alpha-size 8 :require)
     (let ((display (al:create-display +window-width+ +window-height+))
           (event-queue (al:create-event-queue)))
       (when (cffi:null-pointer-p display)
