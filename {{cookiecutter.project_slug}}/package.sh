@@ -24,7 +24,7 @@ case $1 in
                     --appdir=appimage $(find bin -name "lib*" -printf "-l%p ")
         cp bin/{{cookiecutter.project_slug}} appimage/usr/bin
         cp -R Resources appimage/usr
-        appimagetool --appimage-extract-and-run --comp xz -g appimage "{{cookiecutter.project_slug}}-${VERSION}.AppImage"
+        appimagetool --appimage-extract-and-run --comp zstd -g appimage "{{cookiecutter.project_slug}}-${VERSION}.AppImage"
         ;;
 
     windows)
