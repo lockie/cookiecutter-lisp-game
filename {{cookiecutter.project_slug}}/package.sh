@@ -64,7 +64,7 @@ case $1 in
         ;;
 
     *)
-        echo "Uknown package flavor: $1"
+        echo "Unknown package flavor: $1"
         exit 1
         ;;
 esac
